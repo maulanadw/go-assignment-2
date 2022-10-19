@@ -7,7 +7,7 @@ import (
 )
 
 type OrderRepository interface {
-	CreateOrder(order model.Order) error
+	CreateOrder(order model.Order) (model.Order, error)
 	GetOrder() ([]model.Order, error)
 	UpdateOrder(ID int, order model.Order) error
 	DeleteORder(ID int) error
@@ -24,8 +24,9 @@ func NewOrderRepository(db *gorm.DB) OrderRepository {
 	}
 }
 
-func (o *orderRepository) CreateOrder(order model.Order) error {
-	return o.DB.Create(&order).Error
+func (or *orderRepository) CreateOrder(order model.Order) (model.Order, error) {
+	err := or.DB.Create(&order)
+	return order, err.Error
 }
 
 func (o *orderRepository) GetOrder() ([]model.Order, error) {

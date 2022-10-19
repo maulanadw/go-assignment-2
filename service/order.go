@@ -8,7 +8,7 @@ import (
 )
 
 type OrderService interface {
-	CreateOrder(customerName string) error
+	CreateOrder(customerName string) (*param.Order, error)
 	GetOrder() ([]param.Order, error)
 	UpdateOrder(ID int, request param.Order) error
 	DeleteOrder(ID int) error
@@ -35,19 +35,26 @@ func toOrderParams(orderModels []model.Order) []param.Order {
 
 func toOrderParam(orderModel model.Order) param.Order {
 	return param.Order{
+		ID:           int(orderModel.ID),
 		CustomerName: &orderModel.CustomerName,
 		Items:        toParamItems(orderModel.Items),
 		OrderedAt:    &orderModel.OrderedAt,
 	}
 }
 
-func (o *orderService) CreateOrder(customerName string) error {
+func (o *orderService) CreateOrder(customerName string) (*param.Order, error) {
 	order := model.Order{
 		OrderedAt:    time.Now(),
 		CustomerName: customerName,
 	}
 
-	return o.orderRepository.CreateOrder(order)
+	res, err := o.orderRepository.CreateOrder(order)
+	if err != nil {
+		return nil, err
+	}
+
+	orderParam := toOrderParam(res)
+	return &orderParam, nil
 }
 
 func (o *orderService) GetOrder() ([]param.Order, error) {
