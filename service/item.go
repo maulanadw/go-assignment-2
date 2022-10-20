@@ -70,5 +70,5 @@ func (i *itemService) UpdateItemByOrderID(ID int, request []param.Item) error {
 }
 
 func (i *itemService) DeleteItem(ID int) error {
-	return i.itemRepository.DeleteItem(ID)
+	panic("implement me")
 }

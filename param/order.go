@@ -8,3 +8,10 @@ type Order struct {
 	Items        []Item     `json:"items,omitempty"`
 	OrderedAt    *time.Time `json:"ordered_at,omitempty"`
 }
+
+type OrderResponse struct {
+	Status    int     `json:"status"`
+	Message   *string `json:"message,omitempty"`
+	ErrorInfo *string `json:"error_info,omitempty"`
+	Payload   Order   `json:"payload,omitempty"`
+}

@@ -2,6 +2,7 @@ package repository
 
 import (
 	"go-assignment-2/model"
+	"go-assignment-2/param"
 
 	"gorm.io/gorm"
 )
@@ -10,7 +11,6 @@ type ItemRepository interface {
 	CreateItem(item []model.Item) error
 	GetItem() ([]model.Item, error)
 	UpdateItemByOrderID(orderId int, item []model.Item) error
-	DeleteItem(ID int) error
 }
 
 type itemRepository struct {
@@ -35,7 +35,22 @@ func (i *itemRepository) GetItem() ([]model.Item, error) {
 }
 
 func (i *itemRepository) UpdateItemByOrderID(orderID int, items []model.Item) error {
-	return i.DB.Model(model.Item{}).Where("order_id = ", orderID).Updates(&items).Error
+	var item param.Item
+	err := i.DB.Transaction(func(tx *gorm.DB) error {
+		err := tx.Where("order_id=?", orderID).Delete(&item).Error
+		if err != nil {
+			return err
+		}
+
+		err = tx.Create(&items).Error
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
+
+	return err
 }
 
 func (i *itemRepository) DeleteItem(ID int) error {

@@ -2,15 +2,17 @@ package helper
 
 import "go-assignment-2/param"
 
-func JsonResponse(status int, errorMessage *string, payload interface{}) param.Response {
+func JsonResponse(status int, message *string, errorInfo *string, payload interface{}) param.Response {
 	var response param.Response
-	if errorMessage != nil {
+	if errorInfo != nil {
 		response.Status = status
-		response.ErrorMessage = errorMessage
+		response.Message = message
+		response.ErrorInfo = errorInfo
 		response.Payload = nil
 	} else {
 		response.Status = status
-		response.ErrorMessage = nil
+		response.Message = message
+		response.ErrorInfo = nil
 		response.Payload = payload
 	}
 
