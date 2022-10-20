@@ -11,12 +11,11 @@ type orderRouter struct {
 	orderController controller.OrderController
 }
 
-func NewOrderRouter(r *gin.Engine, oc controller.OrderController) *orderRouter {
+func NewOrderRouter(router *gin.Engine, orderController controller.OrderController) *orderRouter {
 	return &orderRouter{
-		router:          r,
-		orderController: oc,
+		router:          router,
+		orderController: orderController,
 	}
-
 }
 
 func (or *orderRouter) Start() {
