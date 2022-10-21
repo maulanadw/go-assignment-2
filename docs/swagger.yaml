@@ -1,0 +1,111 @@
+basePath: /
+definitions:
+  param.Item:
+    properties:
+      OrderID:
+        type: integer
+      description:
+        type: string
+      item_code:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  param.Order:
+    properties:
+      customer_name:
+        type: string
+      id:
+        type: integer
+      items:
+        items:
+          $ref: '#/definitions/param.Item'
+        type: array
+      ordered_at:
+        type: string
+    type: object
+  param.OrderResponse:
+    properties:
+      error_info:
+        type: string
+      message:
+        type: string
+      payload:
+        $ref: '#/definitions/param.Order'
+      status:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: maulana@email.com
+    name: Maulana Dwi Wahyudi
+  description: Build Rest API In GO
+  title: Hacktiv8 Assignment 2
+  version: "1.0"
+paths:
+  /orders:
+    get:
+      description: API for Get All order data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/param.OrderResponse'
+      tags:
+      - Orders
+    post:
+      consumes:
+      - application/json
+      description: API for create order
+      parameters:
+      - description: Create order
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/param.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/param.OrderResponse'
+      tags:
+      - Orders
+  /orders/:id:
+    delete:
+      description: API for Delete order data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/param.OrderResponse'
+      tags:
+      - Orders
+    put:
+      consumes:
+      - application/json
+      description: API for update order data
+      parameters:
+      - description: Update Order
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/param.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/param.OrderResponse'
+      tags:
+      - Orders
+swagger: "2.0"

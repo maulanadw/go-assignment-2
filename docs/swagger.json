@@ -1,0 +1,172 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Build Rest API In GO",
+        "title": "Hacktiv8 Assignment 2",
+        "contact": {
+            "name": "Maulana Dwi Wahyudi",
+            "email": "maulana@email.com"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/orders": {
+            "get": {
+                "description": "API for Get All order data",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/param.OrderResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "API for create order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "parameters": [
+                    {
+                        "description": "Create order",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/param.Order"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/param.OrderResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/:id": {
+            "put": {
+                "description": "API for update order data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "parameters": [
+                    {
+                        "description": "Update Order",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/param.Order"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/param.OrderResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "API for Delete order data",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/param.OrderResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "param.Item": {
+            "type": "object",
+            "properties": {
+                "OrderID": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "item_code": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "param.Order": {
+            "type": "object",
+            "properties": {
+                "customer_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/param.Item"
+                    }
+                },
+                "ordered_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "param.OrderResponse": {
+            "type": "object",
+            "properties": {
+                "error_info": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "payload": {
+                    "$ref": "#/definitions/param.Order"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

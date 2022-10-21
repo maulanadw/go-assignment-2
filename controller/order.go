@@ -29,6 +29,15 @@ func NewOrderController(orderService service.OrderService, itemService service.I
 	}
 }
 
+// @Create Order
+// @tag.name Order
+// @Description API for create order
+// @Accept json
+// @Produce json
+// @Tags Orders
+// @param Body body param.Order true "Create order"
+// @Success 200 {object} param.OrderResponse
+// @Router /orders [POST]
 func (or *orderController) CreateOrder(ctx *gin.Context) {
 	var request param.Order
 	var jsonResponse param.Response
@@ -62,6 +71,13 @@ func (or *orderController) CreateOrder(ctx *gin.Context) {
 	ctx.JSON(jsonResponse.Status, jsonResponse)
 }
 
+// @Get Order
+// @tag.name Order
+// @Description API for Get All order data
+// @Produce json
+// @Tags Orders
+// @Success 200 {object} param.OrderResponse
+// @Router /orders [GET]
 func (or *orderController) GetOrder(ctx *gin.Context) {
 	var jsonResponse param.Response
 
@@ -78,6 +94,15 @@ func (or *orderController) GetOrder(ctx *gin.Context) {
 	ctx.JSON(jsonResponse.Status, jsonResponse)
 }
 
+// @Update Order
+// @tag.name Order
+// @Description API for update order data
+// @Accept json
+// @Produce json
+// @Tags Orders
+// @param Body body param.Order true "Update Order"
+// @Success 200 {object} param.OrderResponse
+// @Router /orders/:id [PUT]
 func (or *orderController) UpdateOrder(ctx *gin.Context) {
 	var request param.Order
 	var jsonResponse param.Response
@@ -126,6 +151,13 @@ func (or *orderController) UpdateOrder(ctx *gin.Context) {
 	ctx.JSON(jsonResponse.Status, jsonResponse)
 }
 
+// @Delete Order
+// @tag.name Order
+// @Description API for Delete order data
+// @Produce json
+// @Tags Orders
+// @Success 200 {object} param.OrderResponse
+// @Router /orders/:id [DELETE]
 func (or *orderController) DeleteOrder(ctx *gin.Context) {
 	var jsonResponse param.Response
 
